@@ -1,0 +1,88 @@
+{
+  "app": {
+    "tagline": "Your personal magic knowledge base",
+    "library": "Library",
+    "loading": "Loading…",
+    "retry": "Retry",
+    "empty": "No tricks yet.",
+    "notFound": "Page not found.",
+    "backHome": "Back to library"
+  },
+  "language": { "label": "Language", "en": "English", "id": "Bahasa Indonesia" },
+  "category": {
+    "card": "Card Magic",
+    "coin": "Coin Magic",
+    "mentalism": "Mentalism",
+    "gimmick": "Gimmick"
+  },
+  "difficulty": { "beginner": "Beginner", "intermediate": "Intermediate", "advanced": "Advanced" },
+  "hero": {
+    "duration": "{{min}}–{{max}} min",
+    "startVisualizer": "Start Visualizer",
+    "favorite": "Add to favorites",
+    "unfavorite": "Remove from favorites"
+  },
+  "visualizer": {
+    "title": "Interactive Visualization",
+    "step": "Step {{current}} / {{total}}",
+    "view": "View",
+    "spectator": "Spectator",
+    "secret": "Secret",
+    "play": "Play",
+    "pause": "Pause",
+    "previous": "Previous phase",
+    "next": "Next phase",
+    "replay": "Replay",
+    "speed": "Speed",
+    "explanations": "Show explanations",
+    "controls": "Animation controls",
+    "spectatorThinks": "Spectator thinks: {{card}}",
+    "sceneLabel": "{{phase}} — {{view}} view",
+    "shortcuts": "Space: play/pause · ←/→: phase · S: switch view",
+    "phases": "Phases"
+  },
+  "breakdown": { "title": "Step-by-step breakdown" },
+  "details": {
+    "title": "Trick details",
+    "category": "Category",
+    "difficulty": "Difficulty",
+    "duration": "Duration",
+    "phases": "Phases",
+    "durationValue": "{{min}}–{{max}} minutes"
+  },
+  "techniques": {
+    "title": "Techniques in this phase",
+    "none": "No special technique in this phase."
+  },
+  "items": {
+    "title": "Gimmicks & props",
+    "none": "No props listed.",
+    "prop": "Prop",
+    "gimmick": "Gimmick"
+  },
+  "tips": { "title": "Pro tips" },
+  "notes": {
+    "trickTitle": "Your notes",
+    "phaseTitle": "Notes for {{phase}}",
+    "empty": "No notes yet.",
+    "placeholder": "Write a note…",
+    "add": "Add note",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editLabel": "Edit note",
+    "created": "Note saved",
+    "updated": "Note updated",
+    "deleted": "Note deleted"
+  },
+  "errors": {
+    "title": "Something went wrong",
+    "generic": "Please try again.",
+    "codes": {
+      "NOT_FOUND": "The item could not be found.",
+      "VALIDATION": "Please check what you entered.",
+      "NOT_SUPPORTED": "This action is not available yet."
+    }
+  }
+}

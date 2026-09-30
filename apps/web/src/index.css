@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-bg: #0b0c0e;
+  --color-sidebar: #0d0f12;
+  --color-panel: #121519;
+  --color-panel-2: #17191d;
+  --color-panel-3: #1d2025;
+  --color-line: #292d34;
+  --color-line-2: #3a3e45;
+  --color-fg: #f1efe9;
+  --color-muted: #a8acb4;
+  --color-subtle: #8e939c;
+  --color-gold: #c9a66b;
+  --color-gold-2: #e2c48f;
+  --color-gold-dim: #765f3c;
+  --color-gold-deep: #29231a;
+  --color-card-face: #f2efe7;
+  --color-card-ink: #17181a;
+  --color-card-red: #b3261e;
+  --color-card-back: #222831;
+  --color-card-back-line: #8c6f45;
+  --color-danger: #d98c8c;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--color-bg);
+    background-image: radial-gradient(
+      circle at 70% 0%,
+      #18140e 0,
+      var(--color-bg) 30%,
+      #090a0c 100%
+    );
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply rounded-md border border-gold-dim bg-gold px-4 py-2 text-sm font-bold text-card-ink hover:bg-gold-2 disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply rounded-md border border-line-2 bg-panel-2 px-3 py-2 text-sm text-fg hover:border-gold-dim disabled:opacity-50;
+  }
+  .field {
+    @apply w-full rounded-md border border-line bg-bg px-3 py-2 text-sm text-fg placeholder:text-subtle focus:border-gold-dim;
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "app": {
+    "tagline": "Basis pengetahuan sulap pribadimu",
+    "library": "Pustaka",
+    "loading": "Memuat…",
+    "retry": "Coba lagi",
+    "empty": "Belum ada trik.",
+    "notFound": "Halaman tidak ditemukan.",
+    "backHome": "Kembali ke pustaka"
+  },
+  "language": { "label": "Bahasa", "en": "English", "id": "Bahasa Indonesia" },
+  "category": {
+    "card": "Sulap Kartu",
+    "coin": "Sulap Koin",
+    "mentalism": "Mentalisme",
+    "gimmick": "Gimmick"
+  },
+  "difficulty": { "beginner": "Pemula", "intermediate": "Menengah", "advanced": "Mahir" },
+  "hero": {
+    "duration": "{{min}}–{{max}} mnt",
+    "startVisualizer": "Mulai Visualisasi",
+    "favorite": "Tambahkan ke favorit",
+    "unfavorite": "Hapus dari favorit"
+  },
+  "visualizer": {
+    "title": "Visualisasi Interaktif",
+    "step": "Langkah {{current}} / {{total}}",
+    "view": "Sudut pandang",
+    "spectator": "Penonton",
+    "secret": "Rahasia",
+    "play": "Putar",
+    "pause": "Jeda",
+    "previous": "Fase sebelumnya",
+    "next": "Fase berikutnya",
+    "replay": "Ulangi",
+    "speed": "Kecepatan",
+    "explanations": "Tampilkan penjelasan",
+    "controls": "Kontrol animasi",
+    "spectatorThinks": "Penonton mengira: {{card}}",
+    "sceneLabel": "{{phase}} — sudut pandang {{view}}",
+    "shortcuts": "Spasi: putar/jeda · ←/→: fase · S: ganti sudut pandang",
+    "phases": "Fase"
+  },
+  "breakdown": { "title": "Rincian langkah demi langkah" },
+  "details": {
+    "title": "Detail trik",
+    "category": "Kategori",
+    "difficulty": "Tingkat kesulitan",
+    "duration": "Durasi",
+    "phases": "Fase",
+    "durationValue": "{{min}}–{{max}} menit"
+  },
+  "techniques": { "title": "Teknik di fase ini", "none": "Tidak ada teknik khusus di fase ini." },
+  "items": {
+    "title": "Gimmick & properti",
+    "none": "Tidak ada properti.",
+    "prop": "Properti",
+    "gimmick": "Gimmick"
+  },
+  "tips": { "title": "Tips pro" },
+  "notes": {
+    "trickTitle": "Catatanmu",
+    "phaseTitle": "Catatan untuk {{phase}}",
+    "empty": "Belum ada catatan.",
+    "placeholder": "Tulis catatan…",
+    "add": "Tambah catatan",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "edit": "Ubah",
+    "delete": "Hapus",
+    "editLabel": "Ubah catatan",
+    "created": "Catatan tersimpan",
+    "updated": "Catatan diperbarui",
+    "deleted": "Catatan dihapus"
+  },
+  "errors": {
+    "title": "Terjadi kesalahan",
+    "generic": "Silakan coba lagi.",
+    "codes": {
+      "NOT_FOUND": "Data tidak ditemukan.",
+      "VALIDATION": "Periksa kembali isianmu.",
+      "NOT_SUPPORTED": "Aksi ini belum tersedia."
+    }
+  }
+}
