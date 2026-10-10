@@ -1,0 +1,26 @@
+{
+  "name": "@sleightbook/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@hono/zod-validator": "^0.9.1",
+    "@sleightbook/engine": "workspace:*",
+    "@sleightbook/shared": "workspace:*",
+    "drizzle-orm": "^0.45.4",
+    "hono": "^4.13.13",
+    "zod": "^4.6.5"
+  },
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "db:generate": "bun --bun drizzle-kit generate",
+    "db:migrate": "bun src/db/migrate.ts",
+    "db:seed": "bun src/db/seed.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.11"
+  }
+}
