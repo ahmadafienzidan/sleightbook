@@ -133,6 +133,16 @@ describe("notes", () => {
     expect(await errorCode(routineNote)).toBe("NOT_SUPPORTED");
   });
 
+  test("malformed JSON is a 400 VALIDATION, not a 500", async () => {
+    const response = await app.request("/api/notes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: "{bad",
+    });
+    expect(response.status).toBe(400);
+    expect(await errorCode(response)).toBe("VALIDATION");
+  });
+
   test("404 when the target does not exist", async () => {
     const response = await send("POST", "/api/notes", { body: "ghost", techniqueId: MISSING_ID });
     expect(response.status).toBe(404);

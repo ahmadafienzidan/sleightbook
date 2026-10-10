@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { HTTPException } from "hono/http-exception";
 
 import type { TDb } from "./db/client";
 import { HttpError } from "./errors";
@@ -29,6 +30,10 @@ export const createApp = (db: TDb, options: IAppOptions) => {
   app.onError((error, c) => {
     if (error instanceof HttpError) {
       return c.json({ error: { code: error.code, message: error.message } }, error.status);
+    }
+    // Hono raises HTTPException(400) for malformed request bodies before our validators run.
+    if (error instanceof HTTPException && error.status === 400) {
+      return c.json({ error: { code: "VALIDATION", message: error.message } }, 400);
     }
     console.error(error);
     return c.json({ error: { code: "INTERNAL", message: "Internal server error" } }, 500);
