@@ -8,14 +8,14 @@ import type {
 } from "./types";
 
 export const asDeckScene = (scene: TScene | undefined): ISceneState => {
-  if (!scene || scene.kind !== "deck") {
+  if (scene?.kind !== "deck") {
     throw new Error(`Expected a deck scene, got ${scene?.kind ?? "nothing"}`);
   }
   return scene;
 };
 
 export const asPacketScene = (scene: TScene | undefined): IPacketScene => {
-  if (!scene || scene.kind !== "packets") {
+  if (scene?.kind !== "packets") {
     throw new Error(`Expected a packet scene, got ${scene?.kind ?? "nothing"}`);
   }
   return scene;
