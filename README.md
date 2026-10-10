@@ -1,5 +1,7 @@
 # Sleightbook
 
+[![CI](https://github.com/ahmadafienzidan/sleightbook/actions/workflows/ci.yml/badge.svg)](https://github.com/ahmadafienzidan/sleightbook/actions/workflows/ci.yml)
+
 Personal magic knowledge base with an interactive routine visualizer.
 
 > Status: MVP1 web app runs on a **local data layer** (browser localStorage, seeded with Ambitious Card).
