@@ -5,6 +5,7 @@ import type { TDb } from "./db/client";
 import { HttpError } from "./errors";
 import { itemsRoutes } from "./routes/items";
 import { libraryRoutes } from "./routes/library";
+import { notesRoutes } from "./routes/notes";
 import { routinesRoutes } from "./routes/routines";
 import { techniquesRoutes } from "./routes/techniques";
 import { tricksRoutes } from "./routes/tricks";
@@ -22,7 +23,8 @@ export const createApp = (db: TDb, options: IAppOptions) => {
     .route("/library", libraryRoutes(db))
     .route("/routines", routinesRoutes(db))
     .route("/techniques", techniquesRoutes(db))
-    .route("/items", itemsRoutes(db));
+    .route("/items", itemsRoutes(db))
+    .route("/notes", notesRoutes(db));
 
   app.onError((error, c) => {
     if (error instanceof HttpError) {

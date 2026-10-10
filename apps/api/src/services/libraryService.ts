@@ -1,3 +1,5 @@
+import { and, eq } from "drizzle-orm";
+
 import {
   toItemDetail,
   toItemSummary,
@@ -21,6 +23,7 @@ import type {
 } from "@sleightbook/shared/schemas/trick";
 
 import type { TDb } from "../db/client";
+import { tricks } from "../db/schema";
 import { loadSnapshot } from "../db/snapshot";
 import { notFound } from "../errors";
 import { getCurrentUserId } from "./currentUser";
@@ -78,4 +81,18 @@ export const listItems = async (db: TDb): Promise<IItemSummary[]> => {
 export const getItem = async (db: TDb, id: string): Promise<IItemDetail> => {
   const library = await loadLibrary(db);
   return toItemDetail(library, findById(library.items, id, "Item"));
+};
+
+export const setFavorite = async (
+  db: TDb,
+  id: string,
+  isFavorite: boolean,
+): Promise<ITrickDetail> => {
+  const updated = await db
+    .update(tricks)
+    .set({ isFavorite })
+    .where(and(eq(tricks.id, id), eq(tricks.userId, getCurrentUserId())))
+    .returning({ id: tricks.id });
+  if (updated.length === 0) throw notFound("Trick");
+  return getTrick(db, id);
 };
