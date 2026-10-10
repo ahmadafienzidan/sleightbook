@@ -256,7 +256,7 @@ export const createLocalDb = ({ storage, newId, now }: ILocalDbOptions) => {
 
 export type TLocalDb = ReturnType<typeof createLocalDb>;
 
-// App instance. Replaced by the Hono client once the API (Part 2) exists.
+// App instance. apps/api serves the same contract; switching the web to it is a separate step.
 export const localDb = createLocalDb({
   storage: getBrowserStorage(),
   newId: () => crypto.randomUUID(),

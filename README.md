@@ -6,8 +6,8 @@ Personal magic knowledge base with an interactive routine visualizer.
 
 Live demo: https://ahmadafienzidan.github.io/sleightbook/
 
-> Status: MVP1 web app runs on a **local data layer** (browser localStorage, seeded with Ambitious Card).
-> The API/database (Part 2) is postponed; see `docs/superpowers/plans/`.
+> Status: the web app runs on a **local data layer** (browser localStorage, seeded with the six-trick library).
+> A standalone API (`apps/api`: Hono + Drizzle on PGlite) serves the same data; the web app is not wired to it yet.
 
 ## Prerequisites
 
@@ -26,7 +26,17 @@ bunx playwright install chromium
 bun run dev
 ```
 
-Web: http://localhost:5173 — to reset local data, clear the site's localStorage (key `sleightbook.db.v1`).
+Web: http://localhost:5173 — to reset local data, clear the site's localStorage (key `sleightbook.db.v2`).
+
+## API (optional)
+
+```bash
+cp apps/api/.env.example apps/api/.env
+bun run db:seed
+bun run dev:api
+```
+
+API: http://localhost:3001/api — data lives in `apps/api/.data` (stop the API before re-seeding).
 
 ## Verify
 
