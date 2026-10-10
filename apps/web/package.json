@@ -18,6 +18,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "dev:with-api": "vite --mode api",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "bun test src",

@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "bun run --cwd apps/web dev",
     "dev:api": "bun run --cwd apps/api dev",
+    "dev:with-api": "bun run --cwd apps/web dev:with-api",
     "db:seed": "bun run --cwd apps/api db:seed",
     "db:up": "docker compose up -d --wait",
     "db:down": "docker compose down",

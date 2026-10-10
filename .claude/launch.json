@@ -12,6 +12,12 @@
       "runtimeExecutable": "bun",
       "runtimeArgs": ["run", "--cwd", "apps/api", "dev"],
       "port": 3001
+    },
+    {
+      "name": "web-with-api",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run", "--cwd", "apps/web", "dev:with-api"],
+      "port": 5173
     }
   ]
 }
