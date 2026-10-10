@@ -6,13 +6,16 @@ import { AppLayout } from "../contents/Layout/AppLayout";
 import { NotFound } from "../contents/NotFound/NotFound";
 import { TrickDetail } from "../contents/TrickDetail/TrickDetail";
 
-export const router = createBrowserRouter([
-  {
-    element: <AppLayout />,
-    children: [
-      { index: true, element: <HomeRedirect /> },
-      { path: ROUTE_TRICK, element: <TrickDetail /> },
-      { path: "*", element: <NotFound /> },
-    ],
-  },
-]);
+export const router = createBrowserRouter(
+  [
+    {
+      element: <AppLayout />,
+      children: [
+        { index: true, element: <HomeRedirect /> },
+        { path: ROUTE_TRICK, element: <TrickDetail /> },
+        { path: "*", element: <NotFound /> },
+      ],
+    },
+  ],
+  { basename: import.meta.env.BASE_URL },
+);

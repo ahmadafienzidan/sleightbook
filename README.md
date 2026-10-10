@@ -4,6 +4,8 @@
 
 Personal magic knowledge base with an interactive routine visualizer.
 
+Live demo: https://ahmadafienzidan.github.io/sleightbook/
+
 > Status: MVP1 web app runs on a **local data layer** (browser localStorage, seeded with Ambitious Card).
 > The API/database (Part 2) is postponed; see `docs/superpowers/plans/`.
 
