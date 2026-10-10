@@ -1,7 +1,7 @@
-import type { TCategory } from "@sleightbook/shared/schemas/enums";
-import type { IResolvedLibraryQuery } from "@sleightbook/shared/schemas/trick";
+import type { TCategory } from "../schemas/enums";
+import type { IResolvedLibraryQuery } from "../schemas/trick";
 
-import type { ILocalDatabaseV2, ITrickRecord } from "../types/localDb.types";
+import type { ILibrarySnapshot, ITrickRecord } from "./records";
 import { routinesOfTrick } from "./assemble";
 
 const CATEGORY_LABELS: Record<TCategory, string> = {
@@ -14,7 +14,7 @@ const CATEGORY_LABELS: Record<TCategory, string> = {
 export const tokenize = (query: string): string[] =>
   query.toLowerCase().split(/\s+/).filter(Boolean);
 
-const searchableText = (db: ILocalDatabaseV2, trick: ITrickRecord): string => {
+const searchableText = (db: ILibrarySnapshot, trick: ITrickRecord): string => {
   const routines = routinesOfTrick(db, trick.id);
   const phaseIds = new Set(routines.flatMap((routine) => routine.phases.map((phase) => phase.id)));
   const techniqueNames = routines
@@ -42,7 +42,7 @@ const searchableText = (db: ILocalDatabaseV2, trick: ITrickRecord): string => {
 };
 
 export const matchesQuery = (
-  db: ILocalDatabaseV2,
+  db: ILibrarySnapshot,
   trick: ITrickRecord,
   query: IResolvedLibraryQuery,
 ): boolean => {

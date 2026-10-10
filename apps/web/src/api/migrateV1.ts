@@ -1,5 +1,6 @@
+import { defaultRoutineOf } from "@sleightbook/shared/library/assemble";
+
 import type { ILocalDatabaseV1, ILocalDatabaseV2 } from "../types/localDb.types";
-import { defaultRoutineOf } from "./assemble";
 
 // Carries MVP1 user data (favorite + notes of Ambitious Card) into a freshly seeded v2 store.
 export const migrateV1 = (

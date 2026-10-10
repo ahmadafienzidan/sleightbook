@@ -1,7 +1,6 @@
-import type { ILibraryFixture } from "@sleightbook/shared/fixtures/library";
-import type { INote } from "@sleightbook/shared/schemas/note";
-
-import type { ILocalDatabaseV2, IRoutineRecord, ITrickRecord } from "../types/localDb.types";
+import type { ILibraryFixture } from "../fixtures/library";
+import type { INote } from "../schemas/note";
+import type { ILibrarySnapshot, IRoutineRecord, ITrickRecord } from "./records";
 
 const idFor = (ids: Map<string, string>, name: string, kind: string): string => {
   const id = ids.get(name);
@@ -9,11 +8,11 @@ const idFor = (ids: Map<string, string>, name: string, kind: string): string => 
   return id;
 };
 
-export const buildSeedDatabase = (
+export const buildLibrarySnapshot = (
   fixture: ILibraryFixture,
   newId: () => string,
   now: string,
-): ILocalDatabaseV2 => {
+): ILibrarySnapshot => {
   const techniques = fixture.techniques.map((technique) => ({ id: newId(), ...technique }));
   const items = fixture.items.map((item) => ({ id: newId(), ...item }));
   const techniqueIds = new Map(techniques.map((technique) => [technique.name, technique.id]));
@@ -68,5 +67,5 @@ export const buildSeedDatabase = (
     }
   }
 
-  return { version: 2, tricks, routines, techniques, items, notes };
+  return { tricks, routines, techniques, items, notes };
 };

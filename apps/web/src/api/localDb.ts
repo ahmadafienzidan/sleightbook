@@ -1,6 +1,19 @@
 import type { z } from "zod";
 
 import { LIBRARY_FIXTURE } from "@sleightbook/shared/fixtures/library";
+import {
+  toItemDetail,
+  toItemSummary,
+  toRoutineDetail,
+  toTechniqueDetail,
+  toTechniqueSummary,
+  toTrickCard,
+  toTrickDetail,
+  toTrickSummary,
+} from "@sleightbook/shared/library/assemble";
+import { buildLibrarySnapshot } from "@sleightbook/shared/library/buildSnapshot";
+import type { IRoutineRecord, ITrickRecord } from "@sleightbook/shared/library/records";
+import { matchesQuery } from "@sleightbook/shared/library/search";
 import type { IItemDetail, IItemSummary } from "@sleightbook/shared/schemas/item";
 import {
   CreateNoteSchema,
@@ -19,22 +32,10 @@ import {
   type ITrickSummary,
 } from "@sleightbook/shared/schemas/trick";
 
-import type { ILocalDatabaseV2, IRoutineRecord, ITrickRecord } from "../types/localDb.types";
+import type { ILocalDatabaseV2 } from "../types/localDb.types";
 import { ApiError } from "./apiError";
-import {
-  toItemDetail,
-  toItemSummary,
-  toRoutineDetail,
-  toTechniqueDetail,
-  toTechniqueSummary,
-  toTrickCard,
-  toTrickDetail,
-  toTrickSummary,
-} from "./assemble";
 import { LocalDatabaseV1Schema, LocalDatabaseV2Schema } from "./localSchemas";
 import { migrateV1 } from "./migrateV1";
-import { matchesQuery } from "./search";
-import { buildSeedDatabase } from "./seedData";
 import { getBrowserStorage, type IStorageLike } from "./storage";
 
 export const DB_STORAGE_KEY = "sleightbook.db.v2";
@@ -102,7 +103,10 @@ export const createLocalDb = ({ storage, newId, now }: ILocalDbOptions) => {
         `Sleightbook: local data was unreadable; a backup was saved under ${backupKey} and the data was reset.`,
       );
     }
-    const seeded = buildSeedDatabase(LIBRARY_FIXTURE, newId, now());
+    const seeded: ILocalDatabaseV2 = {
+      version: 2,
+      ...buildLibrarySnapshot(LIBRARY_FIXTURE, newId, now()),
+    };
     if (!raw) migrateLegacy(seeded);
     save(seeded);
     return seeded;

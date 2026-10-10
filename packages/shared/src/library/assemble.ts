@@ -1,16 +1,11 @@
-import type { IItemDetail, IItemSummary } from "@sleightbook/shared/schemas/item";
-import type { INote } from "@sleightbook/shared/schemas/note";
-import type { IRoutineDetail, ITechnique } from "@sleightbook/shared/schemas/routine";
-import type { ITechniqueDetail, ITechniqueSummary } from "@sleightbook/shared/schemas/technique";
-import type {
-  IItem,
-  ITrickCard,
-  ITrickDetail,
-  ITrickSummary,
-} from "@sleightbook/shared/schemas/trick";
-import type { IUsage } from "@sleightbook/shared/schemas/usage";
+import type { IItemDetail, IItemSummary } from "../schemas/item";
+import type { INote } from "../schemas/note";
+import type { IRoutineDetail, ITechnique } from "../schemas/routine";
+import type { ITechniqueDetail, ITechniqueSummary } from "../schemas/technique";
+import type { IItem, ITrickCard, ITrickDetail, ITrickSummary } from "../schemas/trick";
+import type { IUsage } from "../schemas/usage";
 
-import type { ILocalDatabaseV2, IRoutineRecord, ITrickRecord } from "../types/localDb.types";
+import type { ILibrarySnapshot, IRoutineRecord, ITrickRecord } from "./records";
 
 const byName = <T extends { name: string }>(a: T, b: T): number => a.name.localeCompare(b.name);
 const byCreated = (a: INote, b: INote): number =>
@@ -19,23 +14,23 @@ const byCreated = (a: INote, b: INote): number =>
 export const isVisualRoutineRecord = (routine: IRoutineRecord): boolean =>
   routine.phases.length > 0 && routine.phases.every((phase) => phase.actions.length > 0);
 
-export const routinesOfTrick = (db: ILocalDatabaseV2, trickId: string): IRoutineRecord[] =>
+export const routinesOfTrick = (db: ILibrarySnapshot, trickId: string): IRoutineRecord[] =>
   db.routines
     .filter((routine) => routine.trickId === trickId)
     .sort((a, b) => a.position - b.position);
 
-export const defaultRoutineOf = (db: ILocalDatabaseV2, trickId: string): IRoutineRecord | null => {
+export const defaultRoutineOf = (db: ILibrarySnapshot, trickId: string): IRoutineRecord | null => {
   const routines = routinesOfTrick(db, trickId);
   return routines.find((routine) => routine.isDefault) ?? routines.at(0) ?? null;
 };
 
-const techniqueOf = (db: ILocalDatabaseV2, id: string): ITechnique => {
+const techniqueOf = (db: ILibrarySnapshot, id: string): ITechnique => {
   const technique = db.techniques.find((candidate) => candidate.id === id);
   if (!technique) throw new Error(`Missing technique ${id}`);
   return technique;
 };
 
-const itemOf = (db: ILocalDatabaseV2, id: string): IItem => {
+const itemOf = (db: ILibrarySnapshot, id: string): IItem => {
   const item = db.items.find((candidate) => candidate.id === id);
   if (!item) throw new Error(`Missing item ${id}`);
   return item;
@@ -50,7 +45,7 @@ export const toTrickSummary = (trick: ITrickRecord): ITrickSummary => ({
   isFavorite: trick.isFavorite,
 });
 
-export const toTrickCard = (db: ILocalDatabaseV2, trick: ITrickRecord): ITrickCard => {
+export const toTrickCard = (db: ILibrarySnapshot, trick: ITrickRecord): ITrickCard => {
   const routine = defaultRoutineOf(db, trick.id);
   const techniqueNames = routine
     ? [...new Set(routine.phases.flatMap((phase) => phase.techniqueIds))]
@@ -68,7 +63,7 @@ export const toTrickCard = (db: ILocalDatabaseV2, trick: ITrickRecord): ITrickCa
   };
 };
 
-export const toTrickDetail = (db: ILocalDatabaseV2, trick: ITrickRecord): ITrickDetail => {
+export const toTrickDetail = (db: ILibrarySnapshot, trick: ITrickRecord): ITrickDetail => {
   const defaultRoutine = defaultRoutineOf(db, trick.id);
   return {
     ...toTrickSummary(trick),
@@ -88,7 +83,7 @@ export const toTrickDetail = (db: ILocalDatabaseV2, trick: ITrickRecord): ITrick
   };
 };
 
-export const toRoutineDetail = (db: ILocalDatabaseV2, routine: IRoutineRecord): IRoutineDetail => ({
+export const toRoutineDetail = (db: ILibrarySnapshot, routine: IRoutineRecord): IRoutineDetail => ({
   id: routine.id,
   trickId: routine.trickId,
   name: routine.name,
@@ -111,7 +106,7 @@ export const toRoutineDetail = (db: ILocalDatabaseV2, routine: IRoutineRecord): 
 });
 
 const collectUsages = (
-  db: ILocalDatabaseV2,
+  db: ILibrarySnapshot,
   phaseNamesFor: (routine: IRoutineRecord) => string[] | null,
 ): IUsage[] => {
   const rows: { usage: IUsage; position: number }[] = [];
@@ -135,7 +130,7 @@ const collectUsages = (
     .map((row) => row.usage);
 };
 
-export const techniqueUsages = (db: ILocalDatabaseV2, techniqueId: string): IUsage[] =>
+export const techniqueUsages = (db: ILibrarySnapshot, techniqueId: string): IUsage[] =>
   collectUsages(db, (routine) => {
     const names = [...routine.phases]
       .sort((a, b) => a.position - b.position)
@@ -144,11 +139,11 @@ export const techniqueUsages = (db: ILocalDatabaseV2, techniqueId: string): IUsa
     return names.length > 0 ? names : null;
   });
 
-export const itemUsages = (db: ILocalDatabaseV2, itemId: string): IUsage[] =>
+export const itemUsages = (db: ILibrarySnapshot, itemId: string): IUsage[] =>
   collectUsages(db, (routine) => (routine.itemIds.includes(itemId) ? [] : null));
 
 export const toTechniqueSummary = (
-  db: ILocalDatabaseV2,
+  db: ILibrarySnapshot,
   technique: ITechnique,
 ): ITechniqueSummary => ({
   id: technique.id,
@@ -159,7 +154,7 @@ export const toTechniqueSummary = (
 });
 
 export const toTechniqueDetail = (
-  db: ILocalDatabaseV2,
+  db: ILibrarySnapshot,
   technique: ITechnique,
 ): ITechniqueDetail => ({
   ...technique,
@@ -167,12 +162,12 @@ export const toTechniqueDetail = (
   notes: db.notes.filter((note) => note.techniqueId === technique.id).sort(byCreated),
 });
 
-export const toItemSummary = (db: ILocalDatabaseV2, item: IItem): IItemSummary => ({
+export const toItemSummary = (db: ILibrarySnapshot, item: IItem): IItemSummary => ({
   ...item,
   usageCount: itemUsages(db, item.id).length,
 });
 
-export const toItemDetail = (db: ILocalDatabaseV2, item: IItem): IItemDetail => ({
+export const toItemDetail = (db: ILibrarySnapshot, item: IItem): IItemDetail => ({
   ...item,
   usedIn: itemUsages(db, item.id),
   notes: db.notes.filter((note) => note.itemId === item.id).sort(byCreated),
