@@ -39,6 +39,17 @@ export const seed = async (
   return snapshot;
 };
 
+// Seeds only when the default user does not exist yet; returns whether it seeded.
+export const seedIfEmpty = async (db: TDb): Promise<boolean> => {
+  const existing = await db
+    .select({ id: users.id })
+    .from(users)
+    .where(eq(users.id, DEFAULT_USER_ID));
+  if (existing.length > 0) return false;
+  await seed(db);
+  return true;
+};
+
 if (import.meta.main) {
   const db = createDb(requireEnv("DATA_DIR"));
   try {
