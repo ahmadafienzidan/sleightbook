@@ -31,7 +31,7 @@ afterAll(async () => {
 
 const getJson = async (path: string): Promise<unknown> => (await app.request(path)).json();
 
-const send = (method: string, path: string, body?: unknown): Promise<Response> =>
+const send = async (method: string, path: string, body?: unknown): Promise<Response> =>
   app.request(path, body === undefined ? { method } : jsonInit(method, body));
 
 const errorCode = async (response: Response): Promise<string> =>
