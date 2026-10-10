@@ -1,3 +1,4 @@
+import type { IAppOptions } from "../src/app";
 import { createDb, type TDb } from "../src/db/client";
 import { runMigrations } from "../src/db/migrate";
 
@@ -14,3 +15,5 @@ export const jsonInit = (method: string, body: unknown): RequestInit => ({
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(body),
 });
+
+export const TEST_APP_OPTIONS: IAppOptions = { webOrigin: "http://localhost:5173" };
