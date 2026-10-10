@@ -32,11 +32,11 @@ Web: http://localhost:5173 — to reset local data, clear the site's localStorag
 
 ```bash
 cp apps/api/.env.example apps/api/.env
-bun run db:seed
 bun run dev:api
 ```
 
-API: http://localhost:3001/api — data lives in `apps/api/.data` (stop the API before re-seeding).
+API: http://localhost:3001/api — data lives in `apps/api/.data`. The first start seeds the sample library.
+`bun run db:seed` resets it to the sample library, **deleting your favorites and notes**; stop the API first.
 
 ## Verify
 
