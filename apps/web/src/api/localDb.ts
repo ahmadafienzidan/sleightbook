@@ -256,7 +256,7 @@ export const createLocalDb = ({ storage, newId, now }: ILocalDbOptions) => {
 
 export type TLocalDb = ReturnType<typeof createLocalDb>;
 
-// App instance. apps/api serves the same contract; switching the web to it is a separate step.
+// App instance used when VITE_API_URL is not set (see dataSource.ts).
 export const localDb = createLocalDb({
   storage: getBrowserStorage(),
   newId: () => crypto.randomUUID(),

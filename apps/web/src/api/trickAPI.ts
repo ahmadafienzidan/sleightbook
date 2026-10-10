@@ -1,9 +1,8 @@
-import { localDb } from "./localDb";
+import { dataSource } from "./dataSource";
 
-// Local data source until the API (Part 2) exists; only these bodies change then.
-export const getTricks = async () => localDb.listTricks();
+export const getTricks = async () => dataSource.listTricks();
 
-export const getTrick = async (id: string) => localDb.getTrick(id);
+export const getTrick = async (id: string) => dataSource.getTrick(id);
 
 export const patchTrickFavorite = async (id: string, isFavorite: boolean) =>
-  localDb.setFavorite(id, isFavorite);
+  dataSource.setFavorite(id, isFavorite);

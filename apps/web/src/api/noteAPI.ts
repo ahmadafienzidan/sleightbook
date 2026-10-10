@@ -1,9 +1,9 @@
 import type { ICreateNoteInput } from "@sleightbook/shared/schemas/note";
 
-import { localDb } from "./localDb";
+import { dataSource } from "./dataSource";
 
-export const postNote = async (input: ICreateNoteInput) => localDb.createNote(input);
+export const postNote = async (input: ICreateNoteInput) => dataSource.createNote(input);
 
-export const patchNote = async (id: string, body: string) => localDb.updateNote(id, body);
+export const patchNote = async (id: string, body: string) => dataSource.updateNote(id, body);
 
-export const deleteNote = async (id: string) => localDb.deleteNote(id);
+export const deleteNote = async (id: string) => dataSource.deleteNote(id);
